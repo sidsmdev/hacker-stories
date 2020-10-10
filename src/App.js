@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
 
+const title = "Hello React Js!"
+
 function App() {
   return (
     <div className="App">
-      <p>Hi React !</p>
+      <p>{title}</p>
     </div>
   );
 }
