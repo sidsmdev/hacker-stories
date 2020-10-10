@@ -33,25 +33,25 @@ class App extends Component {
     this.state ={ //state is an object ! not a function
       booksl: list,
     };
-    this.reflectChange = this.reflectChange.bind(this);// needed if we need to access this
+    //this.reflectChange = this.reflectChange.bind(this);// needed if we need to access this
   }
 
 
-  reflectChange (event) {
-    console.log(event.target.value);
-    console.log(this);
-  }
+  // reflectChange (event) {
+  //   console.log(event.target.value);
+  //   console.log(this);
+  // }
   render() {
 
-    // const reflectChange = (event) => {
-    //   console.log(event.target.value);
-    // }
+    const reflectChange = (event) => {  // this is arrow function we dont need this to access this 
+      console.log(event.target.value);
+    }
 
     return (
       <div className="App">
         <p>{welcome.greeting} {welcome.title}</p>
         <label htmlFor="search">Search : </label>
-        <input id="search" type="text" onChange={this.reflectChange}/>
+        <input id="search" type="text" onChange={reflectChange}/>
         <hr />
         <List booklist={this.state.booksl} />
       </div>
