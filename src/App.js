@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 
-const title = "Hello React Js!"
 
 const welcome = {
   greeting: "Hello : ",
