@@ -24,34 +24,31 @@ const list = [
     objectID: 1,
   },
 ];
- 
+
 
 class App extends Component {
 
-  constructor(props){
-    super(props); //before calling this a call to super is must
-    this.state ={ //state is an object ! not a function
+  constructor(props) {
+    super(props);
+    this.state = {
       booksl: list,
     };
-    //this.reflectChange = this.reflectChange.bind(this);// needed if we need to access this
+  }
+  onSearchChange = (event) => {
+    this.setState({
+      booksl: list.filter(item => {
+        return item.title.toLowerCase().includes(event.target.value.toLowerCase());
+      })
+    })
   }
 
-
-  // reflectChange (event) {
-  //   console.log(event.target.value);
-  //   console.log(this);
-  // }
   render() {
-
-    const reflectChange = (event) => {  // this is arrow function we dont need this to access this 
-      console.log(event.target.value);
-    }
 
     return (
       <div className="App">
         <p>{welcome.greeting} {welcome.title}</p>
         <label htmlFor="search">Search : </label>
-        <input id="search" type="text" onChange={reflectChange}/>
+        <Search change={this.onSearchChange} />
         <hr />
         <List booklist={this.state.booksl} />
       </div>
@@ -59,6 +56,15 @@ class App extends Component {
   }
 }
 
+
+class Search extends Component {
+
+  render() {
+    return (
+      <input id="search" type="text" onChange={this.props.change} />
+    );
+  }
+}
 
 class List extends Component {
 
