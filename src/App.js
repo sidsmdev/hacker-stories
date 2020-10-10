@@ -78,6 +78,11 @@ class List extends Component {
               <span>{item.author}</span>
               <span>{item.points}</span>
               <span>{item.num_comments}</span>
+              <span> 
+                <Button>
+                   Dismiss
+                </Button>
+              </span>
             </div>
           })
         }
@@ -86,4 +91,17 @@ class List extends Component {
   }
 }
 
+class Button extends Component{
+
+  render(){
+
+    return(
+      
+        <button onClick={this.props.dismiss}>
+          {this.props.children}
+        </button>
+      
+    );
+  }
+}
 export default App;
