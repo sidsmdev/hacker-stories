@@ -35,18 +35,25 @@ function App() {
       <input id="search" type="text" />
       <hr />
 
+      <List/>
+    </div>
+  );
+}
+
+
+function List() {
+  return (
+    <div>
       {
         list.map(item => {
           return <div key={item.objectID}>
-            <span>{item.title} + {item.url}</span>
+            <a href={item.url}>{ item.title}</a>
             <span>{item.author}</span>
             <span>{item.points}</span>
             <span>{item.num_comments}</span>
           </div>
         })
       }
-
-
     </div>
   );
 }
