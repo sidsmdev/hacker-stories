@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
 import './App.css';
-
 
 const welcome = {
   greeting: "Hello : ",
@@ -25,36 +24,60 @@ const list = [
     objectID: 1,
   },
 ];
+ 
 
-function App() {
-  return (
-    <div className="App">
-      <p>{welcome.greeting} {welcome.title}</p>
-      <label htmlFor="search">Search : </label>
-      <input id="search" type="text" />
-      <hr />
+class App extends Component {
 
-      <List/>
-    </div>
-  );
+  constructor(props){
+    super(props); //before calling this a call to super is must
+    this.state ={ //state is an object ! not a function
+      booksl: list,
+    };
+    this.reflectChange = this.reflectChange.bind(this);// needed if we need to access this
+  }
+
+
+  reflectChange (event) {
+    console.log(event.target.value);
+    console.log(this);
+  }
+  render() {
+
+    // const reflectChange = (event) => {
+    //   console.log(event.target.value);
+    // }
+
+    return (
+      <div className="App">
+        <p>{welcome.greeting} {welcome.title}</p>
+        <label htmlFor="search">Search : </label>
+        <input id="search" type="text" onChange={this.reflectChange}/>
+        <hr />
+        <List booklist={this.state.booksl} />
+      </div>
+    );
+  }
 }
 
 
-function List() {
-  return (
-    <div>
-      {
-        list.map(item => {
-          return <div key={item.objectID}>
-            <a href={item.url}>{ item.title}</a>
-            <span>{item.author}</span>
-            <span>{item.points}</span>
-            <span>{item.num_comments}</span>
-          </div>
-        })
-      }
-    </div>
-  );
+class List extends Component {
+
+  render() {
+    return (
+      <div>
+        {
+          this.props.booklist.map(item => {
+            return <div key={item.objectID}>
+              <a href={item.url}>{item.title}</a>
+              <span>{item.author}</span>
+              <span>{item.points}</span>
+              <span>{item.num_comments}</span>
+            </div>
+          })
+        }
+      </div>
+    );
+  }
 }
 
 export default App;
