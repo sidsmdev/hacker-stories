@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
+import { List } from './List';
+import { Search } from './Search';
 
 const welcome = {
   greeting: "Hello : ",
@@ -32,14 +34,29 @@ class App extends Component {
     super(props);
     this.state = {
       booksl: list,
+      keyed: "React",
     };
+
   }
   onSearchChange = (event) => {
+    console.log(event.target.value)
     this.setState({
-      booksl: list.filter(item => {
-        return item.title.toLowerCase().includes(event.target.value.toLowerCase());
-      })
+      keyed: event.target.value
+
+    });
+
+  }
+
+  onDismiss = (id) => {
+    var updatedlist = this.state.booksl.filter(item => {
+      console.log(item.objectID + ' ' + id);
+      return item.objectID !== id;
+    });
+
+    this.setState({
+      booksl: updatedlist,
     })
+
   }
 
   render() {
@@ -48,60 +65,13 @@ class App extends Component {
       <div className="App">
         <p>{welcome.greeting} {welcome.title}</p>
         <label htmlFor="search">Search : </label>
-        <Search change={this.onSearchChange} />
+        <Search change={this.onSearchChange} value={this.state.keyed} />
         <hr />
-        <List booklist={this.state.booksl} />
+        <List searchTerm={this.state.keyed} listOfBooks={this.state.booksl} dismiss={this.onDismiss} />
       </div>
     );
   }
 }
 
 
-class Search extends Component {
-
-  render() {
-    return (
-      <input id="search" type="text" onChange={this.props.change} />
-    );
-  }
-}
-
-class List extends Component {
-
-  render() {
-    return (
-      <div>
-        {
-          this.props.booklist.map(item => {
-            return <div key={item.objectID}>
-              <a href={item.url}>{item.title}</a>
-              <span>{item.author}</span>
-              <span>{item.points}</span>
-              <span>{item.num_comments}</span>
-              <span> 
-                <Button>
-                   Dismiss
-                </Button>
-              </span>
-            </div>
-          })
-        }
-      </div>
-    );
-  }
-}
-
-class Button extends Component{
-
-  render(){
-
-    return(
-      
-        <button onClick={this.props.dismiss}>
-          {this.props.children}
-        </button>
-      
-    );
-  }
-}
 export default App;
