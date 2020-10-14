@@ -64,7 +64,9 @@ class App extends Component {
     return (
       <div className="App">
         <p>{welcome.greeting} {welcome.title}</p>
+
         <label htmlFor="search">Search : </label>
+
         <Search change={this.onSearchChange} value={this.state.keyed} />
         <hr />
         <List searchTerm={this.state.keyed} listOfBooks={this.state.booksl} dismiss={this.onDismiss} />
